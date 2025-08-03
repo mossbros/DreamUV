@@ -21,18 +21,11 @@ def get_face_pixel_step(context, face):
         return None
     # Try to get the texture the material is using
     target_img = None
-    for texture_slot in material.texture_slots:
-        if texture_slot is None:
-            continue
-        if texture_slot.texture is None:
-            continue
-        if texture_slot.texture.type == 'NONE':
-            continue
-        if texture_slot.texture.image is None:
-            continue
-        if texture_slot.texture.type == 'IMAGE':
-            target_img = texture_slot.texture.image
-            break
+    if material.use_nodes and material.node_tree:
+        for node in material.node_tree.nodes:
+            if node.type == 'TEX_IMAGE' and node.image:
+                target_img = node.image
+                break
     if target_img is None:
         return None
     # With the texture in hand, save the UV step for one pixel movement

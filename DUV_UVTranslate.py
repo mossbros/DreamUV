@@ -92,7 +92,7 @@ class DREAMUV_OT_uv_translate(bpy.types.Operator):
             context.window_manager.modal_handler_add(self)
             return {'RUNNING_MODAL'}
         else:
-            self.report({'WARNING'}, "No active object")
+            print("No active object")
             return {'CANCELLED'}
 
     def modal(self, context, event):
@@ -260,13 +260,13 @@ class DREAMUV_OT_uv_translate_step(bpy.types.Operator):
         ymove = 0
 
         if self.direction == "left":
-            xmove = move_snap
-        if self.direction == "right":
             xmove = -move_snap
+        if self.direction == "right":
+            xmove = move_snap
         if self.direction == "up":
-            ymove = -move_snap
+            ymove = move_snap
         if self.direction == "down":
-            ymove =  move_snap
+            ymove =  -move_snap
         
         for face in bm.faces:
             if face.select:

@@ -6,7 +6,7 @@ bl_info = {
     "category": "UV",
     "author": "Bram Eulaers",
     "description": "Edit selected faces'UVs directly inside the 3D Viewport. WIP. Check for updates @leukbaars",
-    "blender": (2, 90, 0),
+    "blender": (4, 5, 0),
     "version": (0, 9)
 }
 
@@ -95,7 +95,7 @@ class DREAMUV_PT_uv(bpy.types.Panel):
         addon_prefs = prefs()
         layout = self.layout
         box = layout.box()
-        if bpy.context.object.mode != 'EDIT':
+        if bpy.context.object and bpy.context.object.mode != 'EDIT':
             box.enabled = False
 
         col = box.column(align=True)
@@ -269,7 +269,7 @@ class DREAMUV_PT_uv(bpy.types.Panel):
         #trim
         col.separator()
         box = layout.box()
-        if bpy.context.object.mode != 'EDIT':
+        if bpy.context.object and bpy.context.object.mode != 'EDIT':
             box.enabled = False
         col = box.column(align=True)
         col.label(text="Trim Tool:")

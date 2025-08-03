@@ -10,7 +10,7 @@ from bpy.props import EnumProperty, BoolProperty, StringProperty, FloatProperty,
 def main(context):
     #Check if an atlas object exists
     if context.scene.subrect_atlas is None:
-        self.report({'WARNING'}, "No valid atlas selected!")
+        print("No valid atlas selected!")  # <- Change to print
         return {'FINISHED'}
 
     #make sure active object is actually selected in edit mode:

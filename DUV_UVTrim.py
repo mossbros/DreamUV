@@ -76,9 +76,13 @@ def uv_trim(context):
     print("atlas:")
     print(atlas)
     #check if horizontal or vertical, and make trimsheet
-
-    if context.scene.trim_index > ( len(atlas) - 1.0 ):
-        context.scene.trim_index = 0.0
+    
+    if len(atlas) == 0:
+        print("No trim atlas found or atlas is empty!")
+        return {'FINISHED'}
+    
+    if context.scene.trim_index > ( len(atlas) - 1 ):
+        context.scene.trim_index = 0
 
 
     #MAKE DUPLICATE AND SPLIT EDGES
@@ -170,7 +174,12 @@ def uv_trim(context):
         horizontal = False
         
     #V1: assume horizontal layout
+    if len(atlas) == 0:
+        print("No trim atlas found or atlas is empty!")
+        return {'FINISHED'}
+    
     if atlas[0].xmin <= 0.01 and atlas[0].xmax >= 0.99:
+    
         print("HORIZONTAL MODE")
         
         #flip it!
@@ -365,7 +374,7 @@ def uv_cap(context):
     print(atlas)
     
     if context.scene.cap_index > ( len(atlas) - 1.0 ):
-        context.scene.cap_index = 0.0
+        context.scene.cap_index = 0
     
     #check if horizontal or vertical, and make trimsheet
 
@@ -459,6 +468,11 @@ class DREAMUV_OT_uv_cap(bpy.types.Operator):
 
 def uv_trimnext(self, context):  
     atlas = read_trim_atlas(context, "trim")
+    
+    if len(atlas) == 0:
+        print("No trim atlas found or atlas is empty!")
+        return {'FINISHED'}
+        
     trimindex = int(context.scene.trim_index)
 
     if self.trimswitched == False:
@@ -651,6 +665,11 @@ class DREAMUV_OT_uv_trimnext(bpy.types.Operator):
 
 def uv_capnext(self, context): 
     atlas = read_trim_atlas(context, "cap")
+    
+    if len(atlas) == 0:
+        print("No cap atlas found or atlas is empty!")
+        return {'FINISHED'}
+        
     trimindex = int(context.scene.cap_index)
     
     if self.trimswitched == False:
